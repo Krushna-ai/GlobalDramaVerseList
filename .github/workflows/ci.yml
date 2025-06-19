@@ -1,0 +1,36 @@
+name: GDVL Frontend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  frontend-check:
+    name: Lint, Prettier, and Build (client)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install Dependencies (client)
+        run: npm install
+        working-directory: client
+
+      - name: ✅ Run ESLint
+        run: npm run lint
+        working-directory: client
+
+      - name: ✅ Run Prettier Check
+        run: npx prettier . --check
+        working-directory: client
+
+      - name: 🏗️ Run Vite Build (test only)
+        run: npm run build
+        working-directory: client
