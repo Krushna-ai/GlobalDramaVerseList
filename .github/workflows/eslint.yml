@@ -25,5 +25,6 @@ jobs:
         working-directory: client
 
       - name: ✅ Run ESLint
-        run: npx eslint . --ext .js,.jsx
-        working-directory: client
+        working-directory: client
+        run: |
+          npx eslint . --ext .js,.jsx
