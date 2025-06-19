@@ -1,0 +1,29 @@
+name: ESLint Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  eslint:
+    name: Run ESLint in client/
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⚙ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install dependencies
+        run: npm install
+        working-directory: client
+
+      - name: ✅ Run ESLint
+        run: npx eslint . --ext .js,.jsx
+        working-directory: client
